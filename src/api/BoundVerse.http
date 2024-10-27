@@ -1,0 +1,6 @@
+@BoundVerse_HostAddress = http://localhost:5037
+
+GET {{BoundVerse_HostAddress}}/book/
+Accept: application/json
+
+###
