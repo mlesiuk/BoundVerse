@@ -1,0 +1,22 @@
+services:
+  boundverse.api:
+    image: ${DOCKER_REGISTRY-}boundverse
+    build:
+      context: .
+      dockerfile: src/api/Dockerfile
+      
+  postgre_sql:
+    container_name: postgre_sql
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    ports:
+      - ${POSTGRES_PORT}:5432
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

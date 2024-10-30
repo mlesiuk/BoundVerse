@@ -1,4 +1,5 @@
-﻿namespace BoundVerse.Domain.Entities;
+﻿
+namespace BoundVerse.Domain.Entities;
 
 public sealed class Book : AuditableEntity
 {

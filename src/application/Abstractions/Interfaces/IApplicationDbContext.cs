@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace BoundVerse.Application.Data;
+namespace BoundVerse.Application.Abstractions.Interfaces;
 
 public interface IApplicationDbContext : IDisposable
 {

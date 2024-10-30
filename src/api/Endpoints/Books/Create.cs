@@ -1,20 +1,22 @@
 ﻿using BoundVerse.Api.Services;
+using BoundVerse.Application.Dtos;
 
 namespace BoundVerse.Api.Endpoints.Books;
 
 public class Create : IEndpoint
 {
-    public void MapEndpoints(IEndpointRouteBuilder endpointRouteBuilder)
+    public void MapEndpoint(IEndpointRouteBuilder endpointRouteBuilder)
     {
-        endpointRouteBuilder.MapPost("/", async(
-            string? id,
+        endpointRouteBuilder.MapPost("/books", async(
+            BookDto? bookDto,
             IBooksService booksService,
             CancellationToken cancellationToken = default) =>
             {
-                var book = await booksService.GetBookById(id, cancellationToken);
-                return Results.Ok();
+                var result = await booksService.CreateBook(bookDto, cancellationToken);
+                return result.Match(
+                    success => Results.Created("/books", success),
+                    invalid => Results.BadRequest(invalid));
             })
-        .WithName("book")
         .WithOpenApi();
     }
 }
