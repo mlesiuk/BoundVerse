@@ -1,9 +1,8 @@
-﻿using BoundVerse.Application.Abstractions.Interfaces;
-using BoundVerse.Domain.Entities;
+﻿using BoundVerse.Domain.Entities;
 
 namespace BoundVerse.Application.Abstractions.Interfaces;
 
 public interface ICategoryRepository : IBaseRepository<Category>
 {
-    Task<Category?> FindByNameAsync(string name);
+    Task<Category?> GetByNameAsync(string name, CancellationToken cancellationToken = default);
 }

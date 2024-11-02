@@ -1,23 +1,23 @@
-﻿using BoundVerse.Api.Services;
+﻿using BoundVerse.Application.Services;
 
-namespace BoundVerse.Api.Endpoints.Books;
+namespace BoundVerse.Api.Endpoints.Book;
 
-public class Get : IEndpoint
+public class Modify : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder endpointRouteBuilder)
     {
-        endpointRouteBuilder.MapGet("/books", async (
+        endpointRouteBuilder.MapPut("/book", async (
             string? id,
-            IBooksService booksService,
+            IBookService bookService,
             CancellationToken cancellationToken = default) =>
         {
-            var book = await booksService.GetBookById(id, cancellationToken);
+            var book = await bookService.GetBookById(id, cancellationToken);
             return book.Match(
                 success => Results.Ok(book.Value),
                 invalidInput => Results.BadRequest(invalidInput),
                 notFound => Results.NotFound());
         })
-        .WithName("book")
+        .WithName("book-modify")
         .WithOpenApi();
     }
 }

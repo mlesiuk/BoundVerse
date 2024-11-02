@@ -5,21 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BoundVerse.Infrastructure.Repositories;
 
-public sealed class UnitOfWork : IUnitOfWork
+public sealed class UnitOfWork(
+    ApplicationDbContext context, 
+    ICurrentUserService currentUserService) : IUnitOfWork
 {
-    private readonly ApplicationDbContext _context;
-    private readonly ICurrentUserService _currentUserService;
-
-    public UnitOfWork(ApplicationDbContext context, ICurrentUserService currentUserService)
-    {
-        _context = context;
-        _currentUserService = currentUserService;
-    }
-
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        var username = _currentUserService.UserName ?? "system";
-        foreach (var entry in _context.ChangeTracker.Entries<AuditableEntity>())
+        var username = currentUserService.UserName ?? "system";
+        foreach (var entry in context.ChangeTracker.Entries<AuditableEntity>())
         {
             if (entry is null)
             {
@@ -44,6 +37,6 @@ public sealed class UnitOfWork : IUnitOfWork
                     break;
             }
         }
-        return await _context.SaveChangesAsync(cancellationToken);
+        return await context.SaveChangesAsync(cancellationToken);
     }
 }

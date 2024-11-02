@@ -4,6 +4,9 @@ namespace BoundVerse.Application.Dtos;
 
 public sealed record class BookDto
 {
+    [JsonPropertyName("id")]
+    public Guid Id { get; set; } = Guid.Empty;
+
     [JsonPropertyName("title")]
     public string Title { get; set; } = string.Empty;
 
@@ -17,5 +20,5 @@ public sealed record class BookDto
     public int Year { get; set; }
 
     [JsonPropertyName("category")]
-    public string Category { get; set; } = string.Empty;
+    public string? CategoryId { get; set; }
 }

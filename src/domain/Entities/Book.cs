@@ -8,6 +8,7 @@ public sealed class Book : AuditableEntity
     public static Book CreateBook(
         string title,
         string description,
+        Category category,
         int year, 
         int numberOfPages)
     {
@@ -15,6 +16,7 @@ public sealed class Book : AuditableEntity
         {
             Title = title,
             Description = description,
+            Category = category,
             Year = year,
             NumberOfPages = numberOfPages
         };

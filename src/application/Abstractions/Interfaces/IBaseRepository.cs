@@ -2,8 +2,8 @@
 
 public interface IBaseRepository<TEntity>
 {
-    void Add(TEntity entity);
-    void Delete(TEntity entity);
-    Task<TEntity?> GetByIdAsync(Guid id, bool asNoTracking = true);
-    void Update(TEntity entity);
+    Task AddAsync(TEntity entity, CancellationToken cancellationToken = default);
+    Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+    Task RemoveAsync(TEntity entity, CancellationToken cancellationToken = default);
 }

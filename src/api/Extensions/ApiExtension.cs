@@ -9,7 +9,6 @@ public static class ApiExtension
     {
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
-        services.AddScoped<IBooksService, BooksService>();
 
         return services;
     }

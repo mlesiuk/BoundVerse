@@ -3,4 +3,5 @@
 public sealed class InvalidInputException : Exception
 {
     public InvalidInputException() : base("Invalid input.") { }
+    public InvalidInputException(string message) : base(message) { }
 }

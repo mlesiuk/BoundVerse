@@ -16,7 +16,16 @@ public class BookRepository(ApplicationDbContext context) : IBookRepository
 
     public async Task<Book?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await _books.FindAsync([id], cancellationToken: cancellationToken);
+        return await _books.FindAsync([id], cancellationToken);
+    }
+
+    public async Task RemoveAsync(Book book, CancellationToken cancellationToken = default)
+    {
+        var bookToRemove = await _books.SingleOrDefaultAsync(b => b.Id == book.Id, cancellationToken);
+        if (bookToRemove is not null)
+        {
+            _books.Remove(book);
+        }
     }
 
     public async Task UpdateAsync(Book book, CancellationToken cancellationToken = default)
@@ -25,15 +34,6 @@ public class BookRepository(ApplicationDbContext context) : IBookRepository
         if (bookToUpdate is not null)
         {
             _books.Update(book);
-        }
-    }
-
-    public async Task RemoveAsync(Guid id, CancellationToken cancellationToken = default)
-    {
-        var book = await _books.FindAsync([id], cancellationToken: cancellationToken);
-        if (book is not null)
-        {
-            _books.Remove(book);
         }
     }
 }

@@ -1,6 +1,28 @@
 @BoundVerse_HostAddress = http://localhost:5037
 
-GET {{BoundVerse_HostAddress}}/book/
+GET {{BoundVerse_HostAddress}}/book/b7be5978-7d29-4ad6-afeb-8d25eb9871be
 Accept: application/json
 
 ###
+
+POST {{BoundVerse_HostAddress}}/book
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "Lord of the Rings",
+    "description": "Tolkiens Trillogy",
+    "numberOfPages": 999,
+    "year": 1930,
+    "category": "novels"
+}
+
+###
+
+POST {{BoundVerse_HostAddress}}/category
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "Novels"
+}
