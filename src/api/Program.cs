@@ -5,15 +5,22 @@ using BoundVerse.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var configuration = new Configuration();
-builder.Configuration.Bind(configuration);
+var configuration = builder.Configuration.GetSection("Configuration");
+builder.Services
+    .AddOptions<Configuration>()
+    .Bind(configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var databaseConnectionString = configuration
+    .GetSection("Database")?
+    .GetSection("ConnectionString")?
+    .Value;
+
 builder.Services
     .AddApi()
-    .AddInfrastructure()
+    .AddInfrastructure(databaseConnectionString)
     .AddApplication();
 
 builder.Services.AddEndpoints(typeof(Program).Assembly);

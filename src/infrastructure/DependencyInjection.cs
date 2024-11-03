@@ -9,11 +9,14 @@ namespace BoundVerse.Infrastructure;
 public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services)
+        this IServiceCollection services,
+        string? connectionString)
     {
+        ArgumentException.ThrowIfNullOrEmpty(connectionString, nameof(connectionString));
+
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=example");
+            options.UseNpgsql(connectionString);
         });
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
