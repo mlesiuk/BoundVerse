@@ -22,6 +22,20 @@ public sealed class Book : AuditableEntity
         };
     }
 
+    public void UpdateBook(
+        string title,
+        string description,
+        Category category,
+        int year,
+        int numberOfPages)
+    {
+        Title = title;
+        Description = description;
+        Category = category;
+        Year = year;
+        NumberOfPages = numberOfPages;
+    }
+
     public string Title { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
     public int NumberOfPages { get; private set; }

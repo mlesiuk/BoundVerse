@@ -14,6 +14,13 @@ public class BookRepository(ApplicationDbContext context) : IBookRepository
         await _books.AddAsync(book, cancellationToken);
     }
 
+    public async Task<IEnumerable<Book>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        return await _books
+            .Where(b => b.DeletedAtUtc == null)
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<Book?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _books.FindAsync([id], cancellationToken);
@@ -33,7 +40,9 @@ public class BookRepository(ApplicationDbContext context) : IBookRepository
         var bookToUpdate = await _books.SingleOrDefaultAsync(b => b.Id == book.Id, cancellationToken);
         if (bookToUpdate is not null)
         {
-            _books.Update(book);
+            _books
+                .Entry(bookToUpdate).CurrentValues
+                .SetValues(book);
         }
     }
 }

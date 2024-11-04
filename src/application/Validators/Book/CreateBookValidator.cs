@@ -19,7 +19,7 @@ public sealed class CreateBookValidator : AbstractValidator<BookDto>
             .MinimumLength(3)
             .MaximumLength(4000);
 
-        RuleFor(book => book.CategoryId)
+        RuleFor(book => book.Category)
             .NotNull()
             .NotEmpty();
     }

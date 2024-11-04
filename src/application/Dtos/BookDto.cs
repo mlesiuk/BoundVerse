@@ -20,5 +20,5 @@ public sealed record class BookDto
     public int Year { get; set; }
 
     [JsonPropertyName("category")]
-    public string? CategoryId { get; set; }
+    public CategoryDto Category { get; set; } = new();
 }

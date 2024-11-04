@@ -14,6 +14,13 @@ public sealed class CategoryRepository(ApplicationDbContext context) : ICategory
         await _categories.AddAsync(category, cancellationToken);
     }
 
+    public async Task<IEnumerable<Category>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        return await _categories
+            .Where(c => c.DeletedAtUtc == null)
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<Category?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _categories

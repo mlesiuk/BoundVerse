@@ -14,7 +14,9 @@ Content-Type: application/json
     "description": "Tolkiens Trillogy",
     "numberOfPages": 999,
     "year": 1930,
-    "category": "novels"
+    "category": {
+        "name": "Novels"
+    }
 }
 
 ###
@@ -25,4 +27,20 @@ Content-Type: application/json
 
 {
     "name": "Novels"
+}
+
+###
+
+patch {{BoundVerse_HostAddress}}/book/cf1700af-ea08-4fac-a16c-f4a37033bef4
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "Lord of the Things",
+    "description": "Tolkiens Trillogy",
+    "numberOfPages": 999,
+    "year": 1930,
+    "category": {
+        "name": "Novels"
+    }
 }
